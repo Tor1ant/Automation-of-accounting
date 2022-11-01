@@ -1,10 +1,9 @@
-public class YearlyReportMonths {
-
+public class YearlyReportData {
     int month;
     double income;
     int expenses;
 
-    public YearlyReportMonths(int month) {
+    public YearlyReportData(int month) {
         this.month = month;
 
     }
