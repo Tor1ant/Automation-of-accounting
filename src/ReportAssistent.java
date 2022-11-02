@@ -4,8 +4,7 @@ import java.util.*;
 public class ReportAssistent {
 
     HashMap<Integer, String> months;
-    HashMap<Integer, Integer> profitsByMonths = new HashMap<>();
-    HashMap<Integer, Integer> expensesByMonths = new HashMap<>();
+
 
     ReportAssistent() {
         months = new HashMap<>();
@@ -23,7 +22,11 @@ public class ReportAssistent {
         months.put(12, "Декабрь");
     }
 
-    public void getAllProfitsAndExpensesByMonths(MonthlyReport monthlyReport) {
+    public void doCompare(YearlyReport yearlyReport, MonthlyReport monthlyReport) {
+        // get all profits and expenses by months
+        HashMap<Integer, Integer> profitsByMonths = new HashMap<>();
+        HashMap<Integer, Integer> expensesByMonths = new HashMap<>();
+
         for (Integer numberOfMonths : monthlyReport.monthlyReportDataHashMap.keySet()) {
             int sumOfprofits = 0;
             int sumOfExpenses = 0;
@@ -35,22 +38,26 @@ public class ReportAssistent {
             expensesByMonths.put(numberOfMonths, sumOfExpenses);
         }
 
-    }
+        // do compare monthly reports and yearly report
+        boolean flag = false;
+        for (int i = 1; i <= 12; i++) {
+            if (!yearlyReport.yearlyReportDataHashMap.containsKey(i)) {
+                continue;
+            }
 
-    public void doCompare(YearlyReport yearlyReport) {
-
-
-        for (Integer numbersOfMonths : profitsByMonths.keySet()) {
-
-            if (yearlyReport.yearlyReportDataHashMap.get(numbersOfMonths).income == (profitsByMonths.get(numbersOfMonths))) {
+            if (yearlyReport.yearlyReportDataHashMap.get(i).income == (profitsByMonths.get(i)) &&
+                    yearlyReport.yearlyReportDataHashMap.get(i).expenses == (expensesByMonths.get(i))) {
             } else {
 
-                String monthName = months.get(numbersOfMonths);
+                String monthName = months.get(i);
                 System.out.println("Несоответствие обнаружено в месяце " + monthName);
-
+                flag = true;
             }
         }
-        System.out.println("Операция выполнена успешно. Несоответствий не обнаружено"+"\n");
+        if (flag) {
+            return;
+        }
+        System.out.println("Операция выполнена успешно. Несоответствий не обнаружено" + "\n");
     }
 
     public void printMontlhyReportInformation(MonthlyReport monthlyReport) {
@@ -62,9 +69,11 @@ public class ReportAssistent {
         for (int i = 1; i <= monthlyReport.monthlyReportDataHashMap.size(); i++) {
             for (MonthData monthData : monthlyReport.monthlyReportDataHashMap.get(i)) {
                 monthName = months.get(i);
-                if (monthData.profits > maxProfit) {
-                    maxProfit = monthData.profits;
-                    maxProfitProduct = monthData.itemName;
+                if (!monthData.isExpense) {
+                    if (monthData.profits > maxProfit) {
+                        maxProfit = monthData.profits;
+                        maxProfitProduct = monthData.itemName;
+                    }
                 } else if (monthData.expenses > maxExpenses) {
                     maxExpenses = monthData.expenses;
                     maxExpensesProduct = monthData.itemName;
@@ -83,7 +92,6 @@ public class ReportAssistent {
     public void printYearlyReportInformation(YearlyReport yearlyReport) {
         System.out.println(yearlyReport.year);
         int allProfit;
-
         for (Integer month : yearlyReport.yearlyReportDataHashMap.keySet()) {
             allProfit = (int) (yearlyReport.yearlyReportDataHashMap.get(month).income - yearlyReport.yearlyReportDataHashMap.get(month).expenses);
             System.out.println("Прибыль за " + months.get(month) + " составила: " + allProfit);
@@ -104,6 +112,6 @@ public class ReportAssistent {
         averageProfit = allProfit / 12;
         averageExpenses = allExpenses / 12;
         System.out.println("Средний доход за все месяцы в году: " + averageProfit);
-        System.out.println("Средние расходы за все месяцы в году: " + averageExpenses+"\n");
+        System.out.println("Средние расходы за все месяцы в году: " + averageExpenses + "\n");
     }
 }

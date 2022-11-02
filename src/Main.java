@@ -1,45 +1,44 @@
 
 import java.util.Scanner;
 
-
 public class Main {
     static final String exceptionAlert = "Для проведения операции необходимо считать отчеты";
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        boolean isoperation1Selected = false;
-        boolean isoperation2Selected = false;
         YearlyReport yearlyReport = new YearlyReport();
         MonthlyReport monthlyReport = new MonthlyReport();
         ReportAssistent reportAssistent = new ReportAssistent();
+
         while (true) {
             System.out.println("Выберите операцию:");
             printMenu();
             int selectOperation = Integer.parseInt(scanner.nextLine());
             if (selectOperation == 1) {
+                monthlyReport.monthlyReportDataHashMap.clear();
                 monthlyReport.getMonthlyReport();
-                isoperation1Selected = true;
-                System.out.println("Месячные отчеты считаны."+"\n");
+                System.out.println("Месячные отчеты считаны." + "\n");
+
             } else if (selectOperation == 2) {
+                yearlyReport.yearlyReportDataHashMap.clear();
                 yearlyReport.getEarlyReport();
-                isoperation2Selected = true;
-                System.out.println("Годовой отчет считан."+"\n");
+                System.out.println("Годовой отчет считан." + "\n");
+
             } else if (selectOperation == 3) {
-                if (isoperation1Selected && isoperation2Selected) {
-                    reportAssistent.getAllProfitsAndExpensesByMonths(monthlyReport);
-                    reportAssistent.doCompare(yearlyReport);
+                if (!monthlyReport.monthlyReportDataHashMap.isEmpty() && !yearlyReport.yearlyReportDataHashMap.isEmpty()) {
+                    reportAssistent.doCompare(yearlyReport, monthlyReport);
                 } else {
                     System.out.println(exceptionAlert + "\n");
                 }
             } else if (selectOperation == 4) {
-                if (isoperation1Selected) {
+                if (!monthlyReport.monthlyReportDataHashMap.isEmpty()) {
                     reportAssistent.printMontlhyReportInformation(monthlyReport);
                 } else {
                     System.out.println(exceptionAlert + "\n");
                 }
 
             } else if (selectOperation == 5) {
-                if (isoperation2Selected) {
+                if (!yearlyReport.yearlyReportDataHashMap.isEmpty()) {
                     reportAssistent.printYearlyReportInformation(yearlyReport);
                 } else {
                     System.out.println(exceptionAlert + "\n");
@@ -47,7 +46,7 @@ public class Main {
             } else if (selectOperation == 6) {
                 break;
             } else {
-                System.out.println("Такой операции нет."+"\n");
+                System.out.println("Такой операции нет." + "\n");
             }
         }
 

@@ -1,4 +1,6 @@
-public class YearlyReportData {
+import java.util.List;
+
+public class YearlyReportData   {
     int month;
     double income;
     int expenses;
