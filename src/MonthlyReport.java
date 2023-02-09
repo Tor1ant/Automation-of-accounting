@@ -2,8 +2,10 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 public class MonthlyReport {
     HashMap<Integer, ArrayList<MonthData>> monthlyReportDataHashMap = new HashMap<>();
+
     void getMonthlyReport() {
         List<String> fileNames = Resources.getFileNames();
         for (String name :
@@ -22,7 +24,8 @@ public class MonthlyReport {
                             int quantity = Integer.parseInt(lines[2]);
                             int sumOfOne = Integer.parseInt(lines[3]);
                             final var monthData = new MonthData(itemName, isExpense, quantity, sumOfOne);
-                            final List<MonthData> data = monthlyReportDataHashMap.computeIfAbsent(i, k -> new ArrayList<>());
+                            final List<MonthData> data = monthlyReportDataHashMap.computeIfAbsent(i, k ->
+                                    new ArrayList<>());
                             data.add(monthData);
                         }
                     }

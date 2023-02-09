@@ -13,7 +13,8 @@ public class Resources {
         try {
             return Files.readAllLines(Path.of(relativePath + fileName));
         } catch (IOException e) {
-            System.out.println("Невозможно прочитать файл с месячным отчётом. Возможно, файл не находится в нужной директории.");
+            System.out.println("Невозможно прочитать файл с месячным отчётом. Возможно, файл не находится в нужной" +
+                    " директории.");
             return null;
         }
     }

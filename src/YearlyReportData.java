@@ -7,6 +7,5 @@ public class YearlyReportData   {
 
     public YearlyReportData(int month) {
         this.month = month;
-
     }
 }

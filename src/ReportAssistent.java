@@ -80,12 +80,13 @@ public class ReportAssistent {
                 }
             }
             System.out.println("Отчет за " + monthName + ":" + "\n");
-            System.out.println("Самый прибыльный товар: " + maxProfitProduct + ". Доход от него составил: " + maxProfit);
-            System.out.println("Самый не прибыльный товар: " + maxExpensesProduct + ". Расходы составили: " + maxExpenses + "\n");
+            System.out.println("Самый прибыльный товар: " + maxProfitProduct + ". Доход от него составил: " +
+                    maxProfit);
+            System.out.println("Самый не прибыльный товар: " + maxExpensesProduct + ". Расходы составили: " +
+                    maxExpenses + "\n");
             maxProfit = Integer.MIN_VALUE;
             maxExpenses = Integer.MIN_VALUE;
         }
-
     }
 
 
@@ -93,7 +94,8 @@ public class ReportAssistent {
         System.out.println(yearlyReport.year);
         int allProfit;
         for (Integer month : yearlyReport.yearlyReportDataHashMap.keySet()) {
-            allProfit = (int) (yearlyReport.yearlyReportDataHashMap.get(month).income - yearlyReport.yearlyReportDataHashMap.get(month).expenses);
+            allProfit = (int) (yearlyReport.yearlyReportDataHashMap.get(month).income - yearlyReport.
+                    yearlyReportDataHashMap.get(month).expenses);
             System.out.println("Прибыль за " + months.get(month) + " составила: " + allProfit);
         }
         getAverageProfitAndExpenses(yearlyReport);
